@@ -1,8 +1,13 @@
-function App() {
+import {StoreProvider} from './store/provider';
+import Spinner from "./components/Spinner";
+import ToDosList from './components/ToDosList';
+const App = () => {
+ 
   return (
-    <h2>
-      New to dos
-    </h2>
+    <StoreProvider>
+      <Spinner/>
+      <ToDosList/>
+    </StoreProvider>
   );
 }
 
