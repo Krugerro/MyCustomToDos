@@ -4,6 +4,7 @@ export const actionTypes = {
     'DELETE' : 'DELETE',
     'LOAD_ALL' : 'LOAD_ALL',
     'TOGGLE_SPINNER' : 'TOGGLE_SPINNER',
+    'TOGGLE_HOVER' : 'TOGGLE_HOVER',
 };
 
 export const addNewItem = (payload) => {
@@ -20,8 +21,11 @@ export const deleteItem = (payload) => {
 
 export const loadData = (payload) => {
     return {type: actionTypes.LOAD_ALL, payload};
-}
+};
 
 export const toggleSpinner = () => {
     return {type: actionTypes.TOGGLE_SPINNER}
-}
+};
+export const toggleHover = ({id}) => {
+    return {type: actionTypes.TOGGLE_HOVER, id};
+};

@@ -25,6 +25,7 @@ const StoreProvider = ({ children }) => {
 export { StoreProvider, StoreContext };
 
 const initialStateToDos = [
-    { id: 1, description: 'AAAA', completed: false, edit: false },
-    { id: 2, description: 'BBBBB', completed: true, edit: false },
+    { id: 1, description: 'AAAAAAAAAAAAAAAAAA', completed: false, inEdit: false, hover: false },
+    { id: 2, description: 'BBBBB', completed: true, edit: false , hover: false },
+   
 ]
