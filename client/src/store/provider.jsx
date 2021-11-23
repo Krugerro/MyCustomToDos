@@ -26,6 +26,6 @@ export { StoreProvider, StoreContext };
 
 const initialStateToDos = [
     { id: 1, description: 'AAAAAAAAAAAAAAAAAA', completed: false, inEdit: false, hover: false },
-    { id: 2, description: 'BBBBB', completed: true, edit: false , hover: false },
+    { id: 2, description: 'BBBBB', completed: true, inEdit: false , hover: false },
    
 ]

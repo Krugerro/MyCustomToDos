@@ -12,7 +12,7 @@ const Title = styled.h2`
 export const CenteredDiv = styled.div`
     display: flex;
     align-items: center;
-    justify-content: ${props => props.align === 'left' ? "left" : "right"};
+    justify-content: ${props => (props.align || "right")};
 `
 const StyledButton = styled.button`
 

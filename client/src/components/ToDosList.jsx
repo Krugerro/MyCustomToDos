@@ -1,18 +1,16 @@
 import React, { useContext }  from 'react';
 import styled from 'styled-components';
 import {StoreContext} from '../store/provider';
-import ToDosItem from './ToDosItem';
+import ToDosItem from './ToDoItem/ToDosItem';
 
 const StyledContainer = styled.div`
     display:grid;
-    row-gap: 10px;
     overflow-y: auto;
     max-height: 70vh;
-
 `
 
 const ToDosList = () => {
-    const {store,dispatch} = useContext(StoreContext);
+    const {store} = useContext(StoreContext);
 return (
 <StyledContainer>
     {store.toDos.map((item,index)=> {
