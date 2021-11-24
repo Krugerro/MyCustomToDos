@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { changeCompleted, deleteItem, hideHover, openEditMode, showHover, updateItem } from '../../store/actions';
-import { StoreContext } from '../../store/provider';
+import { StoreContext, ToDoInterface } from '../../store/provider';
 import Grid from '@mui/material/Grid';
 import DeleteButton from './DeleteButton';
 import { Card, CardContent, Checkbox, Input, Typography } from '@mui/material';
 
-const ToDosItem = ({ item }) => {
+const ToDosItem : React.FC<{ item: ToDoInterface} >= ({ item }) => {
     const { dispatch } = useContext(StoreContext);
     const { id, description, completed, inEdit, hover, newItem } = item
     const [value, setValue] = useState('');
@@ -14,19 +14,19 @@ const ToDosItem = ({ item }) => {
             setValue('');
         }
     }, [newItem])
-    const checkIfEnter = (e) => {
+    const checkIfEnter = (e: React.KeyboardEvent ) => {
         if (e.key === 'Enter') {
-            dispatch(updateItem({ data: { ...item, description: value }, id: id }));
+            dispatch(updateItem({ ...item, description: value , id: id }));
         }
     }
     const onLostFocus = () => {
-        dispatch(updateItem({ data: { ...item, description: value }, id: id }));
+        dispatch(updateItem({ ...item, description: value, id: id }));
     }
-    const changeValue = (e) => {
+    const changeValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setValue(e.target.value);
     };
 
-    const startEdit = (isCompleted) => {
+    const startEdit = (isCompleted : boolean) => {
         if (!isCompleted) {
             setValue(description || '');
             dispatch(openEditMode(id));
@@ -37,8 +37,8 @@ const ToDosItem = ({ item }) => {
         <Card sx={{ minWidth: 300 }} >
             <CardContent style = {{padding:'5px 0px 0px 0px'}}>
                 <Grid container spacing={1}
-                    onMouseEnter={() => dispatch(showHover({ id }))}
-                    onMouseLeave={() => dispatch(hideHover({ id }))}>
+                    onMouseEnter={() => dispatch(showHover( id ))}
+                    onMouseLeave={() => dispatch(hideHover( id ))}>
 
                     <Grid item xs={1}>
                         <Checkbox
@@ -61,7 +61,7 @@ const ToDosItem = ({ item }) => {
                                 onKeyPress={(e) => checkIfEnter(e)}
                                 onChange={(e) => changeValue(e)}
                             />
-                            : <Typography align='left' noWrap   >{description}</Typography>
+                            : <Typography align='left' noWrap>{description}</Typography>
                         }
 
                     </Grid>
