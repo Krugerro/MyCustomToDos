@@ -14,15 +14,31 @@ const Title: React.FC<{  item : ToDoInterface }> = ({  item }) => {
         if (newItem) {
             setValue('');
         }
-    }, [newItem])
+    }, [newItem]);
+
+    const updateItemData  = async ( id : string, item : ToDoInterface ) : Promise<any> => { 
+
+        const serverResponse = await fetch(`/${id}`, {method : 'put', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(item)})
+          .then(response => response.json())
+          .then(response => response);
+           
+        if (serverResponse) {
+            dispatch(updateItem(serverResponse));
+        }
+        else {
+            const error = new Error('Server communication error');
+            alert(error); 
+        }
+    };
+
     const checkIfEnter = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            dispatch(updateItem({ ...item, description: value, id: id }));
+            updateItemData(id, { ...item, description: value, id: id, inEdit : false , newItem : false, hover:false });
         }
-    }
+    };
     const onLostFocus = () => {
-        dispatch(updateItem({ ...item, description: value, id: id }));
-    }
+        updateItemData(id, { ...item, description: value, id: id, inEdit : false , newItem : false, hover:false });
+    };
     const changeValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setValue(e.target.value);
     };
@@ -38,7 +54,7 @@ const Title: React.FC<{  item : ToDoInterface }> = ({  item }) => {
         textDecoration : 'line-through',
         marginTop: '6px',
         color : 'grey'
-    }
+    };
     return (
         <Grid item xs={10} onDoubleClick={() => startEdit(completed)}>
             {inEdit ?
@@ -58,4 +74,4 @@ const Title: React.FC<{  item : ToDoInterface }> = ({  item }) => {
     )
 };
 
-export default Title
+export default Title;

@@ -8,9 +8,9 @@ import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 const CheckboxItem : React.FC<{ id : string, completed : boolean }>= ( {id, completed} ) => {
 const {dispatch} = useContext(StoreContext);
-    const changeCompletedData  = async ( id : string , url : string) : Promise<any> => {
+    const changeCompletedData  = async ( id : string ) : Promise<any> => {
 
-        const serverResponse = await fetch(`/${id}`, {method : 'put'});
+        const serverResponse = await fetch(`/${id}`, {method : 'put', headers: {'Content-Type': 'application/json'}});
            
         if (serverResponse.ok) {
             dispatch(changeCompleted(id));
@@ -28,7 +28,7 @@ const {dispatch} = useContext(StoreContext);
             icon ={<CircleOutlinedIcon/>}
             checkedIcon={<CheckCircleIcon  />}
             checked={completed}
-            onChange={() => changeCompletedData(id, '/update')}
+            onChange={() => changeCompletedData(id)}
         />
     </Grid>
     )

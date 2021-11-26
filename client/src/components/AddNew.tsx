@@ -11,7 +11,7 @@ const AddNew = () => {
         const serverResponse = await fetch(url, {method: 'post'});
        
         const data : ToDoInterface = await serverResponse.json();
-
+ 
         if (serverResponse.ok) {
             dispatch(addNewItem(data));
         }

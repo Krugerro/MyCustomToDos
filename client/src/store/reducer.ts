@@ -1,7 +1,7 @@
 
 
 import { actionTypes, PayloadActions } from "./actions";
-import uniqid from 'uniqid';
+
 import {   StoreInterface, ToDoInterface } from "./provider";
 
 const reducer = (state : StoreInterface , action: PayloadActions ) : StoreInterface  => {
@@ -13,19 +13,18 @@ const reducer = (state : StoreInterface , action: PayloadActions ) : StoreInterf
             return { ...state, toDos: toDosCopy };
         case actionTypes.ADD:
             toDosCopy = [...state.toDos]
-            const newEntry : ToDoInterface[] = [{id: uniqid(), description: '', completed: false, inEdit: true, newItem:true, hover: false}]
+            const newEntry : ToDoInterface[] = [action.payload]
             return {...state, toDos: newEntry.concat(toDosCopy)}
         case actionTypes.SET_INEDIT :
             toDosCopy = [...state.toDos];
             index = toDosCopy.findIndex(toDo => toDo.id === action.payload.id);
             toDosCopy[index].inEdit = true;
             return { ...state, toDos: toDosCopy };
-        case actionTypes.UPDATE:
-            toDosCopy = [...state.toDos];
-            index = toDosCopy.findIndex(toDo => toDo.id === action.payload.id);
-            toDosCopy[index] = {...action.payload, inEdit : false, newItem:false};
-            return { ...state, toDos: toDosCopy };
 
+        case actionTypes.UPDATE:
+            
+            return {...state, toDos: action.payload};
+            
         case actionTypes.LOAD_ALL:
            
             return {...state, toDos: action.payload};

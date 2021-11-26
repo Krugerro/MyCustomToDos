@@ -10,8 +10,6 @@ import CheckboxItem from './CheckboxItem';
 const ToDosItem : React.FC<{ item: ToDoInterface, index : number} >= ({ item, index }) => {
     const { store, dispatch } = useContext(StoreContext);
     const { id, completed, hover } = item;
-
-    if (index === store.toDos.length -1) {console.log(item.description)} else {console.log('nic')}
     return (
         <Card sx={ index === store.toDos.length -1 ? {marginBottom : '10px!important'} : {  } } >
             <CardContent style = {{padding:'5px 0px 0px 0px'}}>

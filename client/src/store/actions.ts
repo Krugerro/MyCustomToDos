@@ -24,7 +24,7 @@ type ActionMap<M extends { [index: string]: any }> = {
 
 type Payload = {
     [actionTypes.ADD]: ToDoInterface;
-    [actionTypes.UPDATE]: ToDoInterface;
+    [actionTypes.UPDATE]: ToDoInterface[];
     [actionTypes.DELETE]: {
         id: string
     };
@@ -46,15 +46,11 @@ type Payload = {
 
 export type PayloadActions = ActionMap<Payload>[keyof ActionMap<Payload>];
 
-
 export const  addNewItem =  (payload: ToDoInterface): PayloadActions => {
-
-
     return { type: actionTypes.ADD, payload: payload }
 };
 
-
-export const updateItem = (payload: ToDoInterface): PayloadActions => {
+export const updateItem = (payload: ToDoInterface[]): PayloadActions => {
     return { type: actionTypes.UPDATE, payload: payload };
 };
 
@@ -63,7 +59,6 @@ export const deleteItem = (id: string): PayloadActions => {
 };
 
 export const loadData = (payload: ToDoInterface[]): PayloadActions => {
-
     return { type: actionTypes.LOAD_ALL, payload: payload };
 };
 
@@ -73,12 +68,15 @@ export const toggleSpinner = (): PayloadActions => {
 export const showHover = (id: string): PayloadActions => {
     return { type: actionTypes.TOGGLE_HOVER, payload: { id, hover: true } };
 };
+
 export const hideHover = (id: string): PayloadActions => {
     return { type: actionTypes.TOGGLE_HOVER, payload: { id, hover: false } };
 };
+
 export const openEditMode = (id: string): PayloadActions => {
     return { type: actionTypes.SET_INEDIT, payload: { id, inEdit: true } };
-}
+};
+
 export const changeCompleted = (id: string): PayloadActions => {
     return { type: actionTypes.CHANGE_COMPLETED, payload: { id } };
-}
+};
