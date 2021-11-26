@@ -8,7 +8,7 @@ const ToDosList = () => {
 return (
 <div style={{overflowY : 'auto', maxHeight : '80vh', marginBottom : '5px'}}>
 <Stack spacing={1} >
-    {store.toDos.map((item,index)=> {
+    {store.toDos.filter(todo => todo.visible).map((item,index)=> {
         return (
             <ToDosItem index={index} key={index} item={item}></ToDosItem>
         );

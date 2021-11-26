@@ -10,21 +10,18 @@ const CheckboxItem : React.FC<{ id : string, completed : boolean }>= ( {id, comp
 const {dispatch} = useContext(StoreContext);
     const changeCompletedData  = async ( id : string ) : Promise<any> => {
 
-        const serverResponse = await fetch(`/${id}`, {method : 'put', headers: {'Content-Type': 'application/json'}});
-           
-        if (serverResponse.ok) {
-            dispatch(changeCompleted(id));
-        }
-        else {
-            const error = new Error('Server communication error');
+        fetch(`/${id}`, {method : 'put', headers: {'Content-Type': 'application/json'}})
+        .then(() => dispatch(changeCompleted(id)))
+        .catch(e => {
+            const error = new Error(`Server communication error.\nDetails:${e}`);
             alert(error); 
-        }
+          })
       }
 
     return (
         <Grid item xs={1}>
         <Checkbox
-            size="small"
+            size="medium"
             icon ={<CircleOutlinedIcon/>}
             checkedIcon={<CheckCircleIcon  />}
             checked={completed}

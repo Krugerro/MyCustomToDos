@@ -9,6 +9,7 @@ export enum actionTypes {
     'TOGGLE_HOVER' = 'TOGGLE_HOVER',
     'SET_INEDIT' = 'SET_INEDIT',
     'CHANGE_COMPLETED' = 'CHANGE_COMPLETED',
+    'CHANGE_ACTIVE_FILTER' = 'CHANGE_ACTIVE_FILTER',
 };
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -41,12 +42,14 @@ type Payload = {
     };
     [actionTypes.TOGGLE_SPINNER]: boolean;
     [actionTypes.LOAD_ALL]: ToDoInterface[];
-
+    [actionTypes.CHANGE_ACTIVE_FILTER]: {
+        filter: string
+    }
 }
 
 export type PayloadActions = ActionMap<Payload>[keyof ActionMap<Payload>];
 
-export const  addNewItem =  (payload: ToDoInterface): PayloadActions => {
+export const addNewItem = (payload: ToDoInterface): PayloadActions => {
     return { type: actionTypes.ADD, payload: payload }
 };
 
@@ -75,6 +78,10 @@ export const hideHover = (id: string): PayloadActions => {
 
 export const openEditMode = (id: string): PayloadActions => {
     return { type: actionTypes.SET_INEDIT, payload: { id, inEdit: true } };
+};
+
+export const changeFilter = (filter: string): PayloadActions => {
+    return { type: actionTypes.CHANGE_ACTIVE_FILTER, payload: { filter } };
 };
 
 export const changeCompleted = (id: string): PayloadActions => {

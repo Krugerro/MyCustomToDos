@@ -1,27 +1,24 @@
 import { Button } from '@mui/material';
 import  { useContext }  from 'react';
 import { addNewItem } from '../store/actions';
-import { StoreContext, ToDoInterface } from '../store/provider';
+import { StoreContext } from '../store/provider';
 
 
 const AddNew = () => {
     const {dispatch} = useContext(StoreContext);
 
-    const  createNewData = async (url : string) :  Promise<any> => {
-        const serverResponse = await fetch(url, {method: 'post'});
-       
-        const data : ToDoInterface = await serverResponse.json();
- 
-        if (serverResponse.ok) {
-            dispatch(addNewItem(data));
-        }
-        else {
-            const error = new Error('Server communication error');
+    const  createNewData =  (url : string) : void => {
+        
+        fetch(url, {method: 'post'})
+        .then( response => response.json())
+        .then( response => dispatch(addNewItem(response)))
+        .catch(e => {
+            const error = new Error(`Server communication error.\nDetails:${e}`);
             alert(error); 
-        }
+          }) 
     };
 
 return (
-<Button variant="contained" style={{width:'100%'}} onClick={()=>createNewData('/create')}>ADD NEW</Button>
+    <Button variant="contained" style={{width:'100%'}} onClick={()=>createNewData('/create')}>ADD NEW</Button>
 )};
 export default AddNew;

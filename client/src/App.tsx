@@ -4,6 +4,7 @@ import ToDosList from './components/ToDosList';
 import {Header} from './components/Header';
 import AppContainer from './components/AppContainer';
 import AddNew from './components/AddNew';
+import Footer from './components/Footer/Footer';
 const App : React.FC <{}>= () => {
   return (
     <StoreProvider>
@@ -12,6 +13,7 @@ const App : React.FC <{}>= () => {
         <Header/>
         <AddNew/>
         <ToDosList/>
+        <Footer/>
       </AppContainer>
     </StoreProvider>
   )

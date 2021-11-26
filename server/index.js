@@ -6,8 +6,9 @@ const app = express();
 const PORT = process.env.SERVER_PORT;
 const uniqid = require('uniqid')
 
-const newToDo = { id: uniqid(), description: '', completed: false, inEdit: true, hover: true, newItem: true }
+const newToDo = { id: uniqid(), description: '', completed: false, inEdit: true, hover: true, newItem: true , visible : true }
 
+const updatedToDo = {inEdit : false , newItem : false, hover:false}
 app.use(express.json()) 
 
 app.get('/list', (req , res ) => {
@@ -62,14 +63,16 @@ app.put('/:id', (req , res ) => {
   const currDataCopy = [...currData];
 
   if (Object.keys(body).length === 0 && body.constructor === Object) {
+
     currDataCopy[index].completed = !currData[index].completed;
     
   }
   else {
 
-    currDataCopy[index] = body;
-  }
- 
+    currDataCopy[index] = {...body, ...updatedToDo};
+
+  };
+
   store.set('data', currDataCopy);
  
   res.json(currDataCopy);
