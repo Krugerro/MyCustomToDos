@@ -50,5 +50,6 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "typescript": "^4.5.2"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

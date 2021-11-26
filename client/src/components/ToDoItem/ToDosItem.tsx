@@ -1,75 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
-import { changeCompleted, deleteItem, hideHover, openEditMode, showHover, updateItem } from '../../store/actions';
+import { useContext } from 'react';
+import {  hideHover, showHover } from '../../store/actions';
 import { StoreContext, ToDoInterface } from '../../store/provider';
 import Grid from '@mui/material/Grid';
 import DeleteButton from './DeleteButton';
-import { Card, CardContent, Checkbox, Input, Typography } from '@mui/material';
+import { Card, CardContent} from '@mui/material';
+import Title from './Title';
+import CheckboxItem from './CheckboxItem';
 
-const ToDosItem : React.FC<{ item: ToDoInterface} >= ({ item }) => {
-    const { dispatch } = useContext(StoreContext);
-    const { id, description, completed, inEdit, hover, newItem } = item
-    const [value, setValue] = useState('');
-    useEffect(() => {
-        if (newItem) {
-            setValue('');
-        }
-    }, [newItem])
-    const checkIfEnter = (e: React.KeyboardEvent ) => {
-        if (e.key === 'Enter') {
-            dispatch(updateItem({ ...item, description: value , id: id }));
-        }
-    }
-    const onLostFocus = () => {
-        dispatch(updateItem({ ...item, description: value, id: id }));
-    }
-    const changeValue = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setValue(e.target.value);
-    };
+const ToDosItem : React.FC<{ item: ToDoInterface, index : number} >= ({ item, index }) => {
+    const { store, dispatch } = useContext(StoreContext);
+    const { id, completed, hover } = item;
 
-    const startEdit = (isCompleted : boolean) => {
-        if (!isCompleted) {
-            setValue(description || '');
-            dispatch(openEditMode(id));
-        }
-    };
-
+    if (index === store.toDos.length -1) {console.log(item.description)} else {console.log('nic')}
     return (
-        <Card sx={{ minWidth: 300 }} >
+        <Card sx={ index === store.toDos.length -1 ? {marginBottom : '10px!important'} : {  } } >
             <CardContent style = {{padding:'5px 0px 0px 0px'}}>
                 <Grid container spacing={1}
+
                     onMouseEnter={() => dispatch(showHover( id ))}
                     onMouseLeave={() => dispatch(hideHover( id ))}>
 
-                    <Grid item xs={1}>
-                        <Checkbox
-                            size="small"
-                            checked={completed}
-                            onChange={() => dispatch(changeCompleted(id))}
-                        />
+                    <CheckboxItem completed = {completed} id = {id}/>
 
-                    </Grid>
+                    <Title item = {item} />
 
-                    <Grid item xs={10} onDoubleClick={() => startEdit(completed)}>
-
-                        {inEdit ?
-                            <Input
-                                placeholder="Tell me what you do"
-                                value={value}
-                                autoFocus
-                                style = {{width:'100%'}}
-                                onBlur={onLostFocus}
-                                onKeyPress={(e) => checkIfEnter(e)}
-                                onChange={(e) => changeValue(e)}
-                            />
-                            : <Typography align='left' noWrap>{description}</Typography>
-                        }
-
-                    </Grid>
-
-                    {hover && <Grid item xs={1}>
-                        <DeleteButton onClick={() => dispatch(deleteItem(id))} />
-                    </Grid>}
-
+                    <DeleteButton id={id} hover = {hover}/>
+                    
                 </Grid>
             </CardContent>
         </Card>

@@ -18,7 +18,7 @@ export interface StoreInterface {
 };
 
 const initialState : StoreInterface = {
-    toDos: [],
+    toDos: [{id:'0' , description: '', completed: false, inEdit: true, hover: true, newItem: true }],
     isLoading: true
 };
 
@@ -34,9 +34,15 @@ const StoreContext = createContext<StoreContextInterface>({
 
 const StoreProvider: React.FC<{ children :  React.ReactNode} > = ({children})=> {
     const [store, dispatch] = useReducer(reducer, initialState);
-    useEffect(() => {
-        dispatch(loadData([...initialStateToDos]));
+    useEffect( () => {
+    const  loadAllData = async () :  Promise<any> => {
+        const serverResponse = await fetch('/list')
+        .then(response => response.json())
+        .then(response => response);
+        dispatch(loadData(serverResponse));
         dispatch(toggleSpinner());
+    }
+         loadAllData();
     }, [])
     return (
         <StoreContext.Provider value={{ store, dispatch }}>
@@ -46,9 +52,3 @@ const StoreProvider: React.FC<{ children :  React.ReactNode} > = ({children})=> 
 }
 
 export { StoreProvider, StoreContext };
-
-const initialStateToDos : ToDoInterface[] = [
-    { id: '1', description: 'AAAAAAAAAAAAAAAAAA', completed: false, inEdit: false, hover: false, newItem: false },
-    { id: '2', description: 'BBBBB', completed: true, inEdit: false , hover: false, newItem: false  },
-   
-]

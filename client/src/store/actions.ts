@@ -46,7 +46,10 @@ type Payload = {
 
 export type PayloadActions = ActionMap<Payload>[keyof ActionMap<Payload>];
 
-export const addNewItem = (payload: ToDoInterface): PayloadActions => {
+
+export const  addNewItem =  (payload: ToDoInterface): PayloadActions => {
+
+
     return { type: actionTypes.ADD, payload: payload }
 };
 

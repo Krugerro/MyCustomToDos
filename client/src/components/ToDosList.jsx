@@ -6,12 +6,14 @@ import ToDosItem from './ToDoItem/ToDosItem';
 const ToDosList = () => {
     const {store} = useContext(StoreContext);
 return (
-<Stack spacing={1}>
+<div style={{overflowY : 'auto', maxHeight : '80vh', marginBottom : '5px'}}>
+<Stack spacing={1} >
     {store.toDos.map((item,index)=> {
         return (
-            <ToDosItem  key={index} item={item}></ToDosItem>
+            <ToDosItem index={index} key={index} item={item}></ToDosItem>
         );
     })}
 </Stack>
+</div>
 )};
 export default ToDosList;
