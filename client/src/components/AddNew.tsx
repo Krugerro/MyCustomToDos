@@ -19,6 +19,6 @@ const AddNew = () => {
     };
 
 return (
-    <Button variant="contained" style={{width:'100%'}} onClick={()=>createNewData('/create')}>ADD NEW</Button>
+    <Button variant="contained" sx ={{width:'100%'}} onClick={()=>createNewData('/create')}>ADD NEW</Button>
 )};
 export default AddNew;

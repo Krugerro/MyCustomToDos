@@ -17,7 +17,7 @@ app.get('/list', (req , res ) => {
 
   if ( data === undefined ) {store.set('data', []);}
 
-  res.json(store.get('data'));
+  res.status(200).json(store.get('data'));
 
 });
 
@@ -31,7 +31,7 @@ app.post('/create', (req , res ) => {
 
   store.set('data', appendedData);
 
-  res.json(newlyCreatedToDo);
+  res.status(201).json(newlyCreatedToDo);
 
 
 });
@@ -46,7 +46,19 @@ app.delete('/:id', (req , res ) => {
  
   store.set('data', currDataCopy);
  
-  res.send();
+  res.status(200).send();
+  
+});
+
+app.delete('/deletecompleted', (req , res ) => {
+
+  const currData = store.get("data");
+
+  const currDataCopy = currData.filter(ele => !ele.completed );
+ 
+  store.set('data', currDataCopy);
+ 
+  res.status(200).send();
   
 });
 
@@ -75,7 +87,7 @@ app.put('/:id', (req , res ) => {
 
   store.set('data', currDataCopy);
  
-  res.json(currDataCopy);
+  res.status(200).json(currDataCopy);
   
 });
 

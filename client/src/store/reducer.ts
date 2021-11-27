@@ -64,7 +64,13 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
                     toDosNew = toDosCopy.map(toDo => (toDo.completed ? {...toDo, visible : true } : {...toDo, visible : false }));
                     break;
             }
-            return {...state, toDos: toDosNew, filterActive : action.payload.filter}
+            return {...state, toDos: toDosNew, filterActive : action.payload.filter};
+
+            case actionTypes.DELETE_COMPLETED :
+
+                toDosCopy = [...state.toDos].filter(toDo => !toDo.completed);
+
+                return {...state, toDos : toDosCopy}
         default:
             return { ...state };
     }

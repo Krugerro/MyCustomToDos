@@ -10,6 +10,7 @@ export enum actionTypes {
     'SET_INEDIT' = 'SET_INEDIT',
     'CHANGE_COMPLETED' = 'CHANGE_COMPLETED',
     'CHANGE_ACTIVE_FILTER' = 'CHANGE_ACTIVE_FILTER',
+    'DELETE_COMPLETED' = 'DELETE_COMPLETED',
 };
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -44,7 +45,8 @@ type Payload = {
     [actionTypes.LOAD_ALL]: ToDoInterface[];
     [actionTypes.CHANGE_ACTIVE_FILTER]: {
         filter: string
-    }
+    };
+    [actionTypes.DELETE_COMPLETED]: boolean;
 }
 
 export type PayloadActions = ActionMap<Payload>[keyof ActionMap<Payload>];
@@ -87,3 +89,8 @@ export const changeFilter = (filter: string): PayloadActions => {
 export const changeCompleted = (id: string): PayloadActions => {
     return { type: actionTypes.CHANGE_COMPLETED, payload: { id } };
 };
+
+export const deleteCompleted = (): PayloadActions => {
+    return { type: actionTypes.DELETE_COMPLETED, payload: true };
+};
+

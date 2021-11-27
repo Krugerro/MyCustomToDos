@@ -6,7 +6,7 @@ const AppContainer : React.FC<{ children :  React.ReactNode} > = ({children})=> 
         <CssBaseline>
             <Container maxWidth="sm">
                 {children}
-            </Container>)
+            </Container>
         </CssBaseline>
     )
 };

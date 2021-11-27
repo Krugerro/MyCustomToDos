@@ -7,13 +7,13 @@ import { Card, CardContent} from '@mui/material';
 import Title from './Title';
 import CheckboxItem from './CheckboxItem';
 
-const ToDosItem : React.FC<{ item: ToDoInterface, index : number} >= ({ item, index }) => {
-    const { store, dispatch } = useContext(StoreContext);
+const ToDosItem : React.FC<{ item: ToDoInterface, index : number} >= ({ item }) => {
+    const {  dispatch } = useContext(StoreContext);
     const { id, completed, hover } = item;
     return (
-        <Card sx={ index === store.toDos.length -1 ? {marginBottom : '10px!important'} : {  } } >
-            <CardContent style = {{padding:'5px 0px 0px 0px'}}>
-                <Grid container spacing={1}
+        <Card sx={ { "&:last-child" : {marginBottom : '10px'} } } >
+            <CardContent sx= {{padding : '0px', paddingBottom : '0px!important'}}>
+                <Grid container 
 
                     onMouseEnter={() => dispatch(showHover( id ))}
                     onMouseLeave={() => dispatch(hideHover( id ))}>

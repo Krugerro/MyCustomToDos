@@ -83,13 +83,13 @@ const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
                     placeholder="Tell me what you do"
                     value={value}
                     autoFocus
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                     onBlur={onLostFocus}
                     onKeyPress={(e) => checkIfEnter(e)}
                     onChange={(e) => changeValue(e)}
                 />
                 : <Typography
-                    style={toDoTitleStyle}
+                    sx={toDoTitleStyle}
                     align='left'
                     noWrap>
                     {description}

@@ -23,7 +23,7 @@ return (
     {hover &&
     <Grid item xs={1}>
         <IconButton  
-          onClick={() => deleteItemData(id)} style={{color:'#ff000069'}}>
+          onClick={() => deleteItemData(id)} sx={{opacity:'0.7'}}>
             <DeleteIcon  fontSize="small" />
       </IconButton>
     </Grid>

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_all": "echo \"Error: no start specified\" && exit 1",
+    "client-start" : "cd server && npm start",
+    "server-start" : "cd client && npm start",
+    "startAll" : "concurrently \"npm run server-start\" \"npm run client-start\"",
     "postinstall": "cd client && npm install && cd.. && cd server && npm install"
   },
   "repository": {
