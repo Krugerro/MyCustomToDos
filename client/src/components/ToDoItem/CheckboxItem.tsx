@@ -1,4 +1,4 @@
-import { Checkbox, Grid } from "@mui/material"
+import { Checkbox } from "@mui/material"
 import { useContext } from "react";
 import { changeCompleted, changeFilter } from "../../store/actions";
 import { StoreContext } from "../../store/provider";
@@ -22,7 +22,7 @@ const {store, dispatch} = useContext(StoreContext);
       }
 
     return (
-        <Grid item xs={1}>
+        
         <Checkbox
             size="medium"
             icon ={<CircleOutlinedIcon/>}
@@ -30,7 +30,7 @@ const {store, dispatch} = useContext(StoreContext);
             checked={completed}
             onChange={() => changeCompletedData(id)}
         />
-    </Grid>
+   
     )
 }
 export default CheckboxItem;

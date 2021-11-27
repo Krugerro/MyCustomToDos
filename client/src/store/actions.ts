@@ -11,6 +11,7 @@ export enum actionTypes {
     'CHANGE_COMPLETED' = 'CHANGE_COMPLETED',
     'CHANGE_ACTIVE_FILTER' = 'CHANGE_ACTIVE_FILTER',
     'DELETE_COMPLETED' = 'DELETE_COMPLETED',
+    'CHANGE_ORDER' = 'CHANGE_ORDER',
 };
 
 type ActionMap<M extends { [index: string]: any }> = {
@@ -47,6 +48,10 @@ type Payload = {
         filter: string
     };
     [actionTypes.DELETE_COMPLETED]: boolean;
+    [actionTypes.CHANGE_ORDER] :{
+        oldIndex : number;
+        newIndex : number;
+    }
 }
 
 export type PayloadActions = ActionMap<Payload>[keyof ActionMap<Payload>];
@@ -93,4 +98,8 @@ export const changeCompleted = (id: string): PayloadActions => {
 export const deleteCompleted = (): PayloadActions => {
     return { type: actionTypes.DELETE_COMPLETED, payload: true };
 };
+
+export const changeOrder = (oldIndex : number, newIndex : number) : PayloadActions => {
+    return { type: actionTypes.CHANGE_ORDER, payload: {newIndex, oldIndex }};
+}
 

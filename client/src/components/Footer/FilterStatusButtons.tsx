@@ -9,12 +9,12 @@ export enum filterStatus {
   'COMPLETED' = 'COMPLETED'
 }
 
-const FilterStatusButtons : React.FC< {} > = ({}) => {
+const FilterStatusButtons : React.FC< {} > = () => {
 
     const {store, dispatch} = useContext(StoreContext);
 
     const buttonClick = (filter : string ) : void => {
-       dispatch(changeFilter(filter))
+       dispatch(changeFilter(filter));
     };
 
     return (

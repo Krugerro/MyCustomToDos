@@ -1,7 +1,8 @@
-import { Grid, Input, Typography } from "@mui/material";
+import { Input } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { deleteItem, openEditMode, updateItem } from "../../store/actions";
 import { StoreContext, ToDoInterface } from "../../store/provider";
+import TopographyItem from "./TypographyItem";
 
 const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
 
@@ -68,16 +69,11 @@ const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
         }
     };
 
-    const toDoTitleStyle = completed
-        ? {
-            textDecoration: 'line-through',
-            marginTop: '6px',
-            color: 'grey'
-        }
-        : { marginTop: '6px' }
+   
 
     return (
-        <Grid item xs={10} onDoubleClick={() => startEdit(completed)}>
+        
+            <div onDoubleClick={() => startEdit(completed)}>
             {inEdit ?
                 <Input
                     placeholder="Tell me what you do"
@@ -88,15 +84,11 @@ const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
                     onKeyPress={(e) => checkIfEnter(e)}
                     onChange={(e) => changeValue(e)}
                 />
-                : <Typography
-                    sx={toDoTitleStyle}
-                    align='left'
-                    noWrap>
-                    {description}
-                </Typography>
+                : <TopographyItem completed = { completed} description = {description} align ='left'/>
+                  
             }
 
-        </Grid>
+        </div>
     )
 };
 

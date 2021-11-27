@@ -5,7 +5,7 @@ import { Button, Grid } from '@mui/material';
 import FilterStatusButtons from "./FilterStatusButtons";
 import { deleteCompleted } from "../../store/actions";
 
-const Footer : React.FC< {} > = ({}) => {
+const Footer : React.FC< {} > = ( ) => {
     
     const {store, dispatch} = useContext(StoreContext);
 

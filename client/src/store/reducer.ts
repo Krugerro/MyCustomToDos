@@ -66,11 +66,17 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
             }
             return {...state, toDos: toDosNew, filterActive : action.payload.filter};
 
-            case actionTypes.DELETE_COMPLETED :
+        case actionTypes.DELETE_COMPLETED :
 
-                toDosCopy = [...state.toDos].filter(toDo => !toDo.completed);
+            toDosCopy = [...state.toDos].filter(toDo => !toDo.completed);
+            return {...state, toDos : toDosCopy};
 
-                return {...state, toDos : toDosCopy}
+        case actionTypes.CHANGE_ORDER :
+
+            toDosCopy = [...state.toDos];
+            toDosCopy.splice(action.payload.newIndex, 0, toDosCopy.splice(action.payload.oldIndex, 1)[0]);
+            return {...state, toDos : toDosCopy}
+
         default:
             return { ...state };
     }

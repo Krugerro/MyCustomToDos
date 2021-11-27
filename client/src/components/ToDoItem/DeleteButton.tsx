@@ -4,7 +4,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useContext }  from 'react';
 import { StoreContext } from '../../store/provider';
 import { deleteItem } from '../../store/actions';
-import { Grid } from '@mui/material';
 
 const DeleteButton : React.FC<{ id : string, hover : boolean }>= ( {id, hover} ) => {
 
@@ -21,12 +20,10 @@ const DeleteButton : React.FC<{ id : string, hover : boolean }>= ( {id, hover} )
 return (
   <>
     {hover &&
-    <Grid item xs={1}>
         <IconButton  
           onClick={() => deleteItemData(id)} sx={{opacity:'0.7'}}>
             <DeleteIcon  fontSize="small" />
       </IconButton>
-    </Grid>
   }
 </>
 )};
