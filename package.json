@@ -8,7 +8,9 @@
     "client-start": "cd server && npm start",
     "server-start": "cd client && npm start",
     "startall": "concurrently \"npm run server-start\" \"npm run client-start\"",
-    "postinstall": "npm install && cd client && npm install && cd.. && cd server && npm install"
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "postinstall": "npm run install:server && npm run install:client"
   },
   "repository": {
     "type": "git",

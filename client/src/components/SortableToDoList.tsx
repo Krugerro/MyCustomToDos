@@ -11,7 +11,7 @@ export const SortableToDoList : React.FC<{}> = () => {
     };
 
     return (
-        <ToDosList onSortEnd = {(e :any)=> onSortEnd(e)}/>
+        <ToDosList pressDelay={200} onSortEnd = {(e :any)=> onSortEnd(e)}/>
     )
 };
 
