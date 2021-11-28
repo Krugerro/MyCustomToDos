@@ -1,20 +1,23 @@
 import {StoreProvider} from './store/provider';
 import Spinner from "./components/Spinner";
-import ToDosList from './components/ToDosList';
 import {Header} from './components/Header';
-import Container from './components/Container';
+import AppContainer from './components/AppContainer';
 import AddNew from './components/AddNew';
-const App = () => {
+import Footer from './components/Footer/Footer';
+import SortableToDoList from './components/SortableToDoList';
+const App : React.FC <{}>= () => {
+
   return (
     <StoreProvider>
-      <Container>
+      <AppContainer>
         <Spinner/>
         <Header/>
-        <ToDosList/>
         <AddNew/>
-      </Container>
+        <SortableToDoList/>
+        <Footer/>
+      </AppContainer>
     </StoreProvider>
-  );
-}
+  )
+};
 
 export default App;

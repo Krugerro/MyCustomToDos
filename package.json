@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_all": "echo \"Error: no start specified\" && exit 1",
-    "postinstall": "cd client && npm install && cd.. && cd server && npm install"
+    "client-start": "cd server && npm start",
+    "server-start": "cd client && npm start",
+    "startall": "concurrently \"npm run server-start\" \"npm run client-start\"",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "postinstall": "npm run install:server && npm run install:client"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,6 @@
   },
   "homepage": "https://github.com/Krugerro/MyCustomToDos#readme",
   "dependencies": {
-    "all": "0.0.0"
+    "concurrently": "^6.4.0"
   }
 }
