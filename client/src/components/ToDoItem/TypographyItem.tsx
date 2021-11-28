@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 
-
 const TopographyItem: React.FC<{ completed ?: boolean, description: string , align : "right" | "left" | "center" , cursor ?: string}> = ({ completed, description, align, cursor }) => {
     const toDoTitleStyle = completed
         ? {

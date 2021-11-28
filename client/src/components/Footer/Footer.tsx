@@ -1,50 +1,42 @@
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import { StoreContext } from "../../store/provider";
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import FilterStatusButtons from "./FilterStatusButtons";
-import { deleteCompleted } from "../../store/actions";
+import LeftInfo from "./LeftInfo";
+import DeleteButtonFooter from "./DeleteButtonFooter";
 
-const Footer : React.FC< {} > = ( ) => {
-    
-    const {store, dispatch} = useContext(StoreContext);
+const Footer: React.FC<{}> = () => {
 
-    const countLeft = store.toDos.reduce((count, {completed}) => !completed ? count += 1 : count , 0 )
+  const { store } = useContext(StoreContext);
 
-    const countCompleted = store.toDos.length - countLeft
+  const countLeft: number = store.toDos.reduce((count, { completed }) => !completed ? count += 1 : count, 0);
 
-    const clearCompleted = () : void => {
-      fetch(`deletecompleted`, {method : 'delete', headers: {'Content-Type': 'application/json'}})
-      .then(() => dispatch(deleteCompleted()))
-      .catch(e => {
-          const error = new Error(`Server communication error.\nDetails:${e}`);
-          alert(error); 
-        })
-    }
+  const countCompleted: number = store.toDos.length - countLeft;
+
   return (
-      <Box sx={[{
-        width: '100%',
-        height: '40px',
-        border : '1px solid',
-        borderColor : 'lightgrey',
-        borderRadius : '5px',
-        },
-        (theme) => ({paddingTop: theme.spacing(0.5)})
-      ]}>
+    <Box sx={[{
+      width: '100%',
+      height: '40px',
+      border: '1px solid',
+      borderColor: 'lightgrey',
+      borderRadius: '5px',
+    },
+    (theme) => ({ paddingTop: theme.spacing(0.5) })
+    ]}>
 
-        <Grid container>
-          <Grid item xs={3}>
-        
-              <Button size='small' sx={{textTransform : 'none'}} disabled>{`${countLeft} item${(countLeft>1 || countLeft === 0) ? 's' : ''} left`}</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <FilterStatusButtons/>  
-          </Grid>  
-          <Grid item xs={3}>
-            { countCompleted > 0 && <Button size='small' sx={{textTransform : 'none'}} onClick={()=>clearCompleted()}>Clear completed</Button>}
-          </Grid>
+      <Grid container>
+        <Grid item xs={3}>
+          <LeftInfo countLeft={countLeft} />
         </Grid>
-      </Box>
+        <Grid item xs={6}>
+          <FilterStatusButtons />
+        </Grid>
+        <Grid item xs={3}>
+          <DeleteButtonFooter countCompleted={countCompleted} />
+        </Grid>
+      </Grid>
+    </Box>
   )
 }
 

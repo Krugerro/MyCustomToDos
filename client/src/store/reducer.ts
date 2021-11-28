@@ -20,13 +20,14 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
         case actionTypes.SET_INEDIT:
 
             toDosCopy = [...state.toDos];
-            index = toDosCopy.findIndex(toDo => toDo.id === action.payload.id);
+            index = retrieveIndex(toDosCopy, action.payload.id);
             toDosCopy[index].inEdit = true;
             return { ...state, toDos: toDosCopy };
 
         case actionTypes.UPDATE:
-
-            return { ...state, toDos: action.payload };
+            
+            toDosCopy = [...state.toDos].map(toDo => (toDo.id === action.payload.id ? {...action.payload} : {...toDo}));
+            return { ...state, toDos: toDosCopy};
 
         case actionTypes.LOAD_ALL:
 
@@ -44,7 +45,7 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
             return { ...state, toDos: toDosCopy };
 
         case actionTypes.CHANGE_COMPLETED:
-            
+
             toDosCopy = [...state.toDos];
             index = retrieveIndex(toDosCopy, action.payload.id);
             toDosCopy[index].completed = !toDosCopy[index].completed;
@@ -52,30 +53,30 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
 
         case actionTypes.CHANGE_ACTIVE_FILTER:
             toDosCopy = [...state.toDos];
-            let toDosNew : ToDoInterface[] = []
+            let toDosNew: ToDoInterface[] = []
             switch (action.payload.filter) {
-                case filterStatus.ALL :
-                    toDosNew = toDosCopy.map(toDo=> ({...toDo, visible : true }));
+                case filterStatus.ALL:
+                    toDosNew = toDosCopy.map(toDo => ({ ...toDo, visible: true }));
                     break;
-                case filterStatus.ACTIVE :
-                    toDosNew = toDosCopy.map(toDo => (toDo.completed ? {...toDo, visible : false } : {...toDo, visible : true }));
+                case filterStatus.ACTIVE:
+                    toDosNew = toDosCopy.map(toDo => (toDo.completed ? { ...toDo, visible: false } : { ...toDo, visible: true }));
                     break;
-                case filterStatus.COMPLETED :
-                    toDosNew = toDosCopy.map(toDo => (toDo.completed ? {...toDo, visible : true } : {...toDo, visible : false }));
+                case filterStatus.COMPLETED:
+                    toDosNew = toDosCopy.map(toDo => (toDo.completed ? { ...toDo, visible: true } : { ...toDo, visible: false }));
                     break;
             }
-            return {...state, toDos: toDosNew, filterActive : action.payload.filter};
+            return { ...state, toDos: toDosNew, filterActive: action.payload.filter };
 
-        case actionTypes.DELETE_COMPLETED :
+        case actionTypes.DELETE_COMPLETED:
 
             toDosCopy = [...state.toDos].filter(toDo => !toDo.completed);
-            return {...state, toDos : toDosCopy};
+            return { ...state, toDos: toDosCopy };
 
-        case actionTypes.CHANGE_ORDER :
+        case actionTypes.CHANGE_ORDER:
 
             toDosCopy = [...state.toDos];
             toDosCopy.splice(action.payload.newIndex, 0, toDosCopy.splice(action.payload.oldIndex, 1)[0]);
-            return {...state, toDos : toDosCopy}
+            return { ...state, toDos: toDosCopy }
 
         default:
             return { ...state };
@@ -84,6 +85,6 @@ const reducer = (state: StoreInterface, action: PayloadActions): StoreInterface 
 
 export default reducer;
 
-const retrieveIndex = (toDos : ToDoInterface[], id : string) : number => {
+const retrieveIndex = (toDos: ToDoInterface[], id: string): number => {
     return toDos.findIndex(toDo => toDo.id === id);
 }

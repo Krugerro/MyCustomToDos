@@ -1,5 +1,6 @@
-import { Input } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
+import { Input } from "@mui/material";
+
 import { deleteItem, openEditMode, updateItem } from "../../store/actions";
 import { StoreContext, ToDoInterface } from "../../store/provider";
 import TopographyItem from "./TypographyItem";
@@ -69,13 +70,11 @@ const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
         }
     };
 
-   
-
     return (
-        
-            <div onDoubleClick={() => startEdit(completed)}>
-            {inEdit ?
-                <Input
+
+        <div onDoubleClick={() => startEdit(completed)}>
+            {inEdit 
+               ? <Input
                     placeholder="Tell me what you do"
                     value={value}
                     autoFocus
@@ -84,10 +83,12 @@ const Title: React.FC<{ item: ToDoInterface }> = ({ item }) => {
                     onKeyPress={(e) => checkIfEnter(e)}
                     onChange={(e) => changeValue(e)}
                 />
-                : <TopographyItem completed = { completed} description = {description} align ='left'/>
-                  
-            }
+                : <TopographyItem 
+                    completed={completed} 
+                    description={description} 
+                    align='left' />
 
+            }
         </div>
     )
 };

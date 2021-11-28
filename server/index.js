@@ -4,9 +4,9 @@ const store = require('store');
 const express = require('express');
 const app = express();
 const PORT = process.env.SERVER_PORT;
-const uniqid = require('uniqid')
+const uniqid = require('uniqid');
 
-const newToDo = { id: uniqid(), description: '', completed: false, inEdit: true, hover: true, newItem: true , visible : true }
+const newToDo = { id: uniqid(), description: '', completed: false, inEdit: true, hover: true, newItem: true , visible : true };
 
 const updatedToDo = {inEdit : false , newItem : false, hover:false}
 app.use(express.json()) 
@@ -87,10 +87,9 @@ app.put('/:id', (req , res ) => {
 
   store.set('data', currDataCopy);
  
-  res.status(200).json(currDataCopy);
+  res.status(200).json(currDataCopy[index]);
   
 });
-
 
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);

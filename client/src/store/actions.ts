@@ -27,7 +27,7 @@ type ActionMap<M extends { [index: string]: any }> = {
 
 type Payload = {
     [actionTypes.ADD]: ToDoInterface;
-    [actionTypes.UPDATE]: ToDoInterface[];
+    [actionTypes.UPDATE]: ToDoInterface;
     [actionTypes.DELETE]: {
         id: string
     };
@@ -48,9 +48,9 @@ type Payload = {
         filter: string
     };
     [actionTypes.DELETE_COMPLETED]: boolean;
-    [actionTypes.CHANGE_ORDER] :{
-        oldIndex : number;
-        newIndex : number;
+    [actionTypes.CHANGE_ORDER]: {
+        oldIndex: number;
+        newIndex: number;
     }
 }
 
@@ -60,7 +60,7 @@ export const addNewItem = (payload: ToDoInterface): PayloadActions => {
     return { type: actionTypes.ADD, payload: payload }
 };
 
-export const updateItem = (payload: ToDoInterface[]): PayloadActions => {
+export const updateItem = (payload: ToDoInterface): PayloadActions => {
     return { type: actionTypes.UPDATE, payload: payload };
 };
 
@@ -99,7 +99,7 @@ export const deleteCompleted = (): PayloadActions => {
     return { type: actionTypes.DELETE_COMPLETED, payload: true };
 };
 
-export const changeOrder = (oldIndex : number, newIndex : number) : PayloadActions => {
-    return { type: actionTypes.CHANGE_ORDER, payload: {newIndex, oldIndex }};
+export const changeOrder = (oldIndex: number, newIndex: number): PayloadActions => {
+    return { type: actionTypes.CHANGE_ORDER, payload: { newIndex, oldIndex } };
 }
 
