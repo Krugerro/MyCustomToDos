@@ -15,6 +15,6 @@ Navigate to root folder MyCustomToDos and run:
 
 Then run:
 
-### `npm startall`
+### `npm run startall`
 
 and wait till your default brawser navigate to [http://localhost:3000](http://localhost:3000).
